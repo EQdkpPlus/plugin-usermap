@@ -53,7 +53,7 @@ class usermap extends plugin_generic {
 		// ('a'/'u', Permission-Name, Enable? 'Y'/'N', Language string, array of user-group-ids that should have this permission)
 		// Groups: 1 = Guests, 2 = Super-Admin, 3 = Admin, 4 = Member
 		$this->add_permission('u', 'view',		'Y', $this->user->lang('view'),					array(2,3,4));
-		$this->add_permission('a', 'manage',	'N', $this->user->lang('manage'),				array(2,3));
+		$this->add_permission('a', 'settings',	'N', $this->user->lang('settings'),				array(2,3));
 
 		// -- PDH Modules -------------------------------------
 		#$this->add_pdh_read_module('usermap_banker');
