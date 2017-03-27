@@ -22,7 +22,7 @@
 class usermap_pageobject extends pageobject {
 
 	public static function __shortcuts(){
-		$shortcuts = array('money' => 'gb_money');
+		$shortcuts = array('geolocation' => 'geolocation');
 		return array_merge(parent::$shortcuts, $shortcuts);
 	}
 
@@ -32,6 +32,7 @@ class usermap_pageobject extends pageobject {
 		if (!$this->pm->check('usermap', PLUGIN_INSTALLED))
 			message_die($this->user->lang('usermap_not_installed'));
 
+		require_once($eqdkp_root_path.'plugins/usermap/includes/geolocation.class.php');
 		$handler = array(
 			#'save' => array('process' => 'save', 'csrf' => true, 'check' => 'u_guildbank_view'),
 		);
@@ -40,6 +41,9 @@ class usermap_pageobject extends pageobject {
 	}
 
 	public function display(){
+		// fill the Cache
+		$this->pdh->put('usermap_geolocation', 'fetchUserLocations');
+		$this->pdh->process_hook_queue();
 		$saved_locationdata = $this->pdh->get('usermap_geolocation', 'list');
 		$arrMarkers = array();
 		if(is_array($saved_locationdata) && count($saved_locationdata) > 0){
@@ -47,8 +51,8 @@ class usermap_pageobject extends pageobject {
 				$arrMarkers[$userid] = array(
 					'title'		=> $this->pdh->get('user', 'name', array($userid)),
 					'tooltip'	=> '<div class="usermap_username">'.$this->pdh->get('user', 'name', array($userid)).'</div>',
-					'lat'		=> $locdata['latidtude'],
-					'long'		=> $locdata['longitude'],
+					'lat'		=> $locdata['lat'],
+					'lng'		=> $locdata['long'],
 				);
 			}
 		}

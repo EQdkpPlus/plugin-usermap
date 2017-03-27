@@ -57,6 +57,7 @@ class usermap extends plugin_generic {
 
 		// -- PDH Modules -------------------------------------
 		$this->add_pdh_read_module('usermap_geolocation');
+		$this->add_pdh_write_module('usermap_geolocation');
 
 		// -- Hooks -------------------------------------------
 		#$this->add_hook('search',		'usermap_search_hook',	'search');

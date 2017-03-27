@@ -30,7 +30,7 @@ $guildbankSQL = array(
 
 	'install'   => array(
 		1 => "CREATE TABLE IF NOT EXISTS __usermap_geolocation (
-				user_id mediumint(8) unsigned NOT NULL auto_increment,
+				user_id mediumint(8) unsigned NOT NULL,
 				latitude float default 0,
 				longitude float default 0,
 				last_update int(11) default NULL,

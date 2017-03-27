@@ -26,8 +26,14 @@ if (!defined('EQDKP_INC')){
 if (!class_exists('pdh_w_usermap_geolocation')){
 	class pdh_w_usermap_geolocation extends pdh_w_generic {
 
+		public static function __shortcuts(){
+			$shortcuts = array('geolocation' => 'geolocation');
+			return array_merge(parent::$shortcuts, $shortcuts);
+		}
+
 		public function add($intID, $floatLatitude, $floarLongitude){
-			$resQuery = $this->db->prepare("INSERT INTO __guildbank_items :p")->set(array(
+			$resQuery = $this->db->prepare("INSERT INTO __usermap_geolocation :p")->set(array(
+				'user_id'			=> $intID,
 				'longitude'			=> $floarLongitude,
 				'latitude'			=> $floatLatitude,
 				'last_update'		=> $this->time->time,
@@ -39,7 +45,7 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 		}
 
 		public function update($intID, $floatLatitude, $floarLongitude){
-			$resQuery = $this->db->prepare("UPDATE __guildbank_items :p WHERE item_id=?")->set(array(
+			$resQuery = $this->db->prepare("UPDATE __usermap_geolocation :p WHERE user_id=?")->set(array(
 				'longitude'			=> $floarLongitude,
 				'latitude'			=> $floatLatitude,
 				'last_update'		=> $this->time->time,
@@ -54,27 +60,29 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 			foreach($userlist as $userid){
 				$this->fetchUserLocation($userid);
 			}
+			$this->pdh->enqueue_hook('usermap_geolocation_update');
 		}
 
 		public function fetchUserLocation($user_id){
 			// load location data
-			$street			= $this->getConfig('street', false);
-			$streetNumber	= $this->getConfig('streetnumber', false);
-			$city			= $this->getConfig('city', 1);
-			$zip			= $this->getConfig('zip', false);
-			$country		= $this->getConfig('country', 17);
+			$street			= $this->getConfig($user_id, 'street', false);
+			$streetNumber	= $this->getConfig($user_id, 'streetnumber', false);
+			$city			= $this->getConfig($user_id, 'city', 1);
+			$zip			= $this->getConfig($user_id, 'zip', false);
+			$country		= $this->getConfig($user_id, 'country', 17);
 
 			// fetch latitude & longitude if at least city and country are available
 			if(!empty($country) && !empty($city)){
-				$result = geolocation::getCoordinates($street, $streetNumber, $city, $zip, $country);
-				if($userid > 0 && $result['longitude'] > 0 && $result['latitude'] > 0){
-					$this->add($userid, $result['latitude'], $result['longitude']);
+				$result = $this->geolocation->getCoordinates($street, $streetNumber, $city, $zip, $country);
+				if($user_id > 0 && $result['longitude'] > 0 && $result['latitude'] > 0){
+					$this->add($user_id, $result['latitude'], $result['longitude']);
 				}
 			}
+			$this->pdh->enqueue_hook('usermap_geolocation_update');
 		}
 
 		// custom function to load either the saved data used in config or a defined fallkack value
-		private function getConfig($fieldname, $defaultfield){
+		private function getConfig($userid, $fieldname, $defaultfield){
 			if($this->config->get($fieldname,	'usermap') && $cfieldvalue = $this->pdh->get('user', 'custom_fields', array($userid, 'userprofile_'.$this->config->get($fieldname,	'usermap'))) != ''){
 				return $cfieldvalue;
 			}else{
