@@ -30,29 +30,29 @@ if (!defined('EQDKP_INC')) {
 
 $lang = array(
 	"usermap" => 'Usermap',
-	"usermap_short_desc"			=> 'Manage user locations on a map',
+	"usermap_short_desc"		=> 'Manage user locations on a map',
 	"usermap_long_desc"			=> 'Usermap is a Plugin to manage a map of user locations.',
 	"usermap_not_installed"		=> 'Usermap is not installed.',
-	
+
 		// Main Menu
 	'um_mainmenu_usermap'		=> "Usermap",
-	
+
 	// Admin area
 	'um_breadcrumb_settings'	=> 'Usermap settings',
-	'gb_fs_location'				=> 'Geolocation settings',
-	'gb_f_street'					=> 'User profile field street',
-	'gb_f_help_street'			=> 'If a user profile field for street name is available, this field could be used for more accurate location search for user map.',
-	'gb_f_streetnumber'			=> 'User profile field street number',
-	'gb_f_help_streetnumber'	=> 'If a user profile field for street number is available, this field could be used for more accurate location search for user map.',
-	'gb_f_city'						=> 'User profile field city',
-	'gb_f_help_city'				=> 'If a user profile field for city name is available, this field could be used for more accurate location search for user map.',
-	'gb_f_zip'						=> 'User profile field ZIP',
-	'gb_f_help_zip'				=> 'If a user profile field for ZIP is available, this field could be used for more accurate location search for user map.',
-	'gb_f_country'					=> 'User profile field country',
-	'gb_f_help_country'			=> 'If a user profile field for country name is available, this field could be used for more accurate location search for user map.',
+	'um_fs_location'			=> 'Geolocation settings',
+	'um_f_street'				=> 'User profile field street',
+	'um_f_help_street'			=> 'If a user profile field for street name is available, this field could be used for more accurate location search for user map.',
+	'um_f_streetnumber'			=> 'User profile field street number',
+	'um_f_help_streetnumber'	=> 'If a user profile field for street number is available, this field could be used for more accurate location search for user map.',
+	'um_f_city'					=> 'User profile field city',
+	'um_f_help_city'			=> 'If a user profile field for city name is available, this field could be used for more accurate location search for user map.',
+	'um_f_zip'					=> 'User profile field ZIP',
+	'um_f_help_zip'				=> 'If a user profile field for ZIP is available, this field could be used for more accurate location search for user map.',
+	'um_f_country'				=> 'User profile field country',
+	'um_f_help_country'			=> 'If a user profile field for country name is available, this field could be used for more accurate location search for user map.',
 
 	// credits
-	'um_credits'					=> "Usermap %s",
+	'um_credits'				=> "Usermap %s",
 
 );
 

@@ -66,32 +66,33 @@ class usermapSettings extends page_generic {
 	}
 
 	private function fields(){
+		$none = array(0 => '-- '.$this->user->lang('none').' --');
 		$arrFields = array(
 			'location' => array(
 				'street' => array(
 					'type'		=> 'dropdown',
-					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
 					'value'		=> $this->config->get('street',	'usermap'),
-					
+
 				),
 				'streetnumber' => array(
 					'type'		=> 'dropdown',
-					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
 					'value'		=> $this->config->get('streetnumber',	'usermap'),
 				),
 				'city' => array(
 					'type'		=> 'dropdown',
-					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
 					'value'		=> $this->config->get('city',	'usermap'),
 				),
 				'zip' => array(
 					'type'		=> 'dropdown',
-					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
 					'value'		=> $this->config->get('zip',	'usermap'),
 				),
 				'country' => array(
 					'type'		=> 'dropdown',
-					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
 					'value'		=> $this->config->get('country',	'usermap'),
 				),
 			),

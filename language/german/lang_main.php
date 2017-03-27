@@ -24,8 +24,8 @@ if (!defined('EQDKP_INC')){
 }
 
 $lang = array(
-	'usermap'						=> 'Usermap',
-	'usermap_short_desc'			=> 'Landkarte aller Benutzer erstellen',
+	'usermap'					=> 'Usermap',
+	'usermap_short_desc'		=> 'Landkarte aller Benutzer erstellen',
 	'usermap_long_desc'			=> 'Usermap ist ein Plugin um Google Maps Landkarten von Benutzerstandorten zu erstellen.',
 	'usermap_not_installed'		=> 'Usermap ist nicht installiert.',
 
@@ -34,19 +34,19 @@ $lang = array(
 
 	// Admin area
 	'um_breadcrumb_settings'	=> 'Usermap Einstellungen',
-	'gb_fs_location'				=> 'Geolocation Einstellungen',
-	'gb_f_street'					=> 'Benutzerprofilfeld Straße',
-	'gb_f_help_street'			=> 'Falls ein Benutzerprofilfeld für Straßennamen vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
-	'gb_f_streetnumber'			=> 'Benutzerprofilfeld Hausnummer',
-	'gb_f_help_streetnumber'	=> 'Falls ein Benutzerprofilfeld für Hausnummer vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
-	'gb_f_city'						=> 'Benutzerprofilfeld Stadt',
-	'gb_f_help_city'				=> 'Falls ein Benutzerprofilfeld für Stadt vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
-	'gb_f_zip'						=> 'Benutzerprofilfeld PLZ',
-	'gb_f_help_zip'				=> 'Falls ein Benutzerprofilfeld für PLZ vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
-	'gb_f_country'					=> 'Benutzerprofilfeld Land',
-	'gb_f_help_country'			=> 'Falls ein Benutzerprofilfeld für Land vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
+	'um_fs_location'			=> 'Geolocation Einstellungen',
+	'um_f_street'				=> 'Benutzerprofilfeld Straße',
+	'um_f_help_street'			=> 'Falls ein Benutzerprofilfeld für Straßennamen vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
+	'um_f_streetnumber'			=> 'Benutzerprofilfeld Hausnummer',
+	'um_f_help_streetnumber'	=> 'Falls ein Benutzerprofilfeld für Hausnummer vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
+	'um_f_city'					=> 'Benutzerprofilfeld Stadt',
+	'um_f_help_city'			=> 'Falls ein Benutzerprofilfeld für Stadt vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
+	'um_f_zip'					=> 'Benutzerprofilfeld PLZ',
+	'um_f_help_zip'				=> 'Falls ein Benutzerprofilfeld für PLZ vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
+	'um_f_country'				=> 'Benutzerprofilfeld Land',
+	'um_f_help_country'			=> 'Falls ein Benutzerprofilfeld für Land vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
 
 	// credits
-	'um_credits'					=> "Usermap %s",
+	'um_credits'				=> "Usermap %s",
 );
 ?>
