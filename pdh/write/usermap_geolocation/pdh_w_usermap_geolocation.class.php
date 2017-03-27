@@ -60,9 +60,9 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 			// load location data
 			$street			= $this->getConfig('street', false);
 			$streetNumber	= $this->getConfig('streetnumber', false);
-			$city			= $this->getConfig('city', 'userprofile_1');
+			$city			= $this->getConfig('city', 1);
 			$zip			= $this->getConfig('zip', false);
-			$country		= $this->getConfig('country', 'userprofile_17');
+			$country		= $this->getConfig('country', 17);
 
 			// fetch latitude & longitude if at least city and country are available
 			if(!empty($country) && !empty($city)){
@@ -75,10 +75,10 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 
 		// custom function to load either the saved data used in config or a defined fallkack value
 		private function getConfig($fieldname, $defaultfield){
-			if($this->config->get($fieldname,	'usermap') && $cfieldvalue = $this->pdh->get('user', 'custom_fields', array($userid, $this->config->get($fieldname,	'usermap'))) != ''){
+			if($this->config->get($fieldname,	'usermap') && $cfieldvalue = $this->pdh->get('user', 'custom_fields', array($userid, 'userprofile_'.$this->config->get($fieldname,	'usermap'))) != ''){
 				return $cfieldvalue;
 			}else{
-				return ($defaultfield) ? $this->pdh->get('user', 'custom_fields', array($userid, $defaultfield)) : '';
+				return ($defaultfield) ? $this->pdh->get('user', 'custom_fields', array($userid, 'userprofile_'.$defaultfield)) : '';
 			}
 		}
 

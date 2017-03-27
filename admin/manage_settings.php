@@ -83,7 +83,7 @@ class usermapSettings extends page_generic {
 				'city' => array(
 					'type'		=> 'dropdown',
 					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
-					'value'		=> $this->config->get('city',	'usermap'),
+					'value'		=> ($this->config->get('city',	'usermap')) ? $this->config->get('city',	'usermap') : $this->pdh->get('user_profilefields', 'by_type', array('location')),
 				),
 				'zip' => array(
 					'type'		=> 'dropdown',
@@ -93,7 +93,7 @@ class usermapSettings extends page_generic {
 				'country' => array(
 					'type'		=> 'dropdown',
 					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
-					'value'		=> $this->config->get('country',	'usermap'),
+					'value'		=> ($this->config->get('country',	'usermap')) ? $this->config->get('country',	'usermap') : $this->pdh->get('user_profilefields', 'by_type', array('country')),
 				),
 			),
 		);
