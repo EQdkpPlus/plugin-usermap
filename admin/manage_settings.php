@@ -71,29 +71,29 @@ class usermapSettings extends page_generic {
 			'location' => array(
 				'street' => array(
 					'type'		=> 'dropdown',
-					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
+					'options'	=> $none + $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
 					'value'		=> $this->config->get('street',	'usermap'),
 
 				),
 				'streetnumber' => array(
 					'type'		=> 'dropdown',
-					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
+					'options'	=> $none + $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
 					'value'		=> $this->config->get('streetnumber',	'usermap'),
 				),
 				'city' => array(
 					'type'		=> 'dropdown',
-					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
-					'value'		=> ($this->config->get('city',	'usermap')) ? $this->config->get('city',	'usermap') : $this->pdh->get('user_profilefields', 'by_type', array('location')),
+					'options'	=> $none + $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'value'		=> ($this->config->get('city',	'usermap')) ? $this->config->get('city',	'usermap') : $this->pdh->get('user_profilefields', 'field_by_name', array('location')),
 				),
 				'zip' => array(
 					'type'		=> 'dropdown',
-					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
+					'options'	=> $none + $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
 					'value'		=> $this->config->get('zip',	'usermap'),
 				),
 				'country' => array(
 					'type'		=> 'dropdown',
-					'options'	=> array_merge($none, $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list')))),
-					'value'		=> ($this->config->get('country',	'usermap')) ? $this->config->get('country',	'usermap') : $this->pdh->get('user_profilefields', 'by_type', array('country')),
+					'options'	=> $none + $this->pdh->aget('user_profilefields', 'html_name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'value'		=> ($this->config->get('country',	'usermap')) ? $this->config->get('country',	'usermap') : $this->pdh->get('user_profilefields', 'field_by_name', array('country')),
 				),
 			),
 		);
