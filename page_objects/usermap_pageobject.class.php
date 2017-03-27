@@ -32,9 +32,6 @@ class usermap_pageobject extends pageobject {
 		if (!$this->pm->check('usermap', PLUGIN_INSTALLED))
 			message_die($this->user->lang('usermap_not_installed'));
 
-		// load the google maps jQuery plugin files
-		$this->jquery->init_gmaps();
-
 		$handler = array(
 			#'save' => array('process' => 'save', 'csrf' => true, 'check' => 'u_guildbank_view'),
 		);
@@ -43,9 +40,21 @@ class usermap_pageobject extends pageobject {
 	}
 
 	public function display(){
+		$saved_locationdata = $this->pdh->get('usermap_geolocation', 'list');
+		$arrMarkers = array();
+		if(is_array($saved_locationdata) && count($saved_locationdata) > 0){
+			foreach($saved_locationdata as $userid=>$locdata){
+				$arrMarkers[$userid] = array(
+					'title'		=> $this->pdh->get('user', 'name', array($userid)),
+					'tooltip'	=> '<div class="usermap_username">'.$this->pdh->get('user', 'name', array($userid)).'</div>',
+					'lat'		=> $locdata['latidtude'],
+					'long'		=> $locdata['longitude'],
+				);
+			}
+		}
 
 		$this->tpl->assign_vars(array(
-			'MAP'				=> $this->jquery->googlemaps('usermap'),
+			'MAP'			=> $this->jquery->googlemaps('usermap', $arrMarkers),
 			'CREDITS'		=> sprintf($this->user->lang('um_credits'), $this->pm->get_data('usermap', 'version')),
 		));
 

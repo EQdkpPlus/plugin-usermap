@@ -76,6 +76,13 @@ if (!class_exists('pdh_r_usermap_geolocation')){
 			return array();
 		}
 
+		public function get_list(){
+			if (is_array($this->data)){
+				return $this->data;
+			}
+			return array();
+		}
+
 		public function get_latitude($id){
 			return (isset($this->data[$id]) && $this->data[$id]['latitude']) ? $this->data[$id]['latitude'] : 0;
 		}

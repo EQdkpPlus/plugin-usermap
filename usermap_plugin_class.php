@@ -56,7 +56,7 @@ class usermap extends plugin_generic {
 		$this->add_permission('a', 'settings',	'N', $this->user->lang('settings'),				array(2,3));
 
 		// -- PDH Modules -------------------------------------
-		#$this->add_pdh_read_module('usermap_banker');
+		$this->add_pdh_read_module('usermap_geolocation');
 
 		// -- Hooks -------------------------------------------
 		#$this->add_hook('search',		'usermap_search_hook',	'search');

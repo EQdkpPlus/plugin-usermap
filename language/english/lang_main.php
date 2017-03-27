@@ -51,6 +51,9 @@ $lang = array(
 	'um_f_country'				=> 'User profile field country',
 	'um_f_help_country'			=> 'If a user profile field for country name is available, this field could be used for more accurate location search for user map.',
 
+	// User map page
+	'um_title_page'				=> 'User map',
+
 	// credits
 	'um_credits'				=> "Usermap %s",
 

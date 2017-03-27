@@ -46,6 +46,9 @@ $lang = array(
 	'um_f_country'				=> 'Benutzerprofilfeld Land',
 	'um_f_help_country'			=> 'Falls ein Benutzerprofilfeld für Land vorhanden ist, kann dies zur genaueren Lokalisierung der Benutzer auf der Landkarte verwendet werden.',
 
+	// User map page
+	'um_title_page'				=> 'Benutzerkarte',
+
 	// credits
 	'um_credits'				=> "Usermap %s",
 );
