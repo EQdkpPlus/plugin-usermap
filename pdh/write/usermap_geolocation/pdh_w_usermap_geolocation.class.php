@@ -52,15 +52,33 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 		public function fetchUserLocations(){
 			$userlist 	= $this->pdh->get('user', 'id_list');
 			foreach($userlist as $userid){
-				$street			= '';
-				$streetNumber	= '';
-				$city			= $this->pdh->get('user', 'custom_fields', array($userid, 'userprofile_1');
-				$zip			= '';
-				$country		= $this->pdh->get('user', 'custom_fields', array($userid, 'userprofile_17');;
+				$this->fetchUserLocation($userid);
+			}
+		}
+
+		public function fetchUserLocation($user_id){
+			// load location data
+			$street			= $this->getConfig('street', false);
+			$streetNumber	= $this->getConfig('streetnumber', false);
+			$city			= $this->getConfig('city', 'userprofile_1');
+			$zip			= $this->getConfig('zip', false);
+			$country		= $this->getConfig('country', 'userprofile_17');
+
+			// fetch latitude & longitude if at least city and country are available
+			if(!empty($country) && !empty($city)){
 				$result = geolocation::getCoordinates($street, $streetNumber, $city, $zip, $country);
 				if($userid > 0 && $result['longitude'] > 0 && $result['latitude'] > 0){
 					$this->add($userid, $result['latitude'], $result['longitude']);
 				}
+			}
+		}
+
+		// custom function to load either the saved data used in config or a defined fallkack value
+		private function getConfig($fieldname, $defaultfield){
+			if($this->config->get($fieldname,	'usermap') && $cfieldvalue = $this->pdh->get('user', 'custom_fields', array($userid, $this->config->get($fieldname,	'usermap'))) != ''){
+				return $cfieldvalue;
+			}else{
+				return ($defaultfield) ? $this->pdh->get('user', 'custom_fields', array($userid, $defaultfield)) : '';
 			}
 		}
 

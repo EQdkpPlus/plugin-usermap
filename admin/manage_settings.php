@@ -67,12 +67,32 @@ class usermapSettings extends page_generic {
 
 	private function fields(){
 		$arrFields = array(
-			'banker_display' => array(
-				'show_money' => array(
-					'type'		=> 'radio',
+			'location' => array(
+				'street' => array(
+					'type'		=> 'dropdown',
+					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'value'		=> $this->config->get('street',	'usermap'),
+					
 				),
-				'merge_bankers' => array(
-					'type'		=> 'radio',
+				'streetnumber' => array(
+					'type'		=> 'dropdown',
+					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'value'		=> $this->config->get('streetnumber',	'usermap'),
+				),
+				'city' => array(
+					'type'		=> 'dropdown',
+					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'value'		=> $this->config->get('city',	'usermap'),
+				),
+				'zip' => array(
+					'type'		=> 'dropdown',
+					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'value'		=> $this->config->get('zip',	'usermap'),
+				),
+				'country' => array(
+					'type'		=> 'dropdown',
+					'options'	=> $this->pdh->aget('user_profilefields', 'name', 0, array($this->pdh->get('user_profilefields', 'id_list'))),
+					'value'		=> $this->config->get('country',	'usermap'),
 				),
 			),
 		);
