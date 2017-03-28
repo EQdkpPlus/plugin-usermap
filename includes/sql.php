@@ -23,7 +23,7 @@ if (!defined('EQDKP_INC')){
 	header('HTTP/1.0 404 Not Found');exit;
 }
 
-$guildbankSQL = array(
+$usermapSQL = array(
 	'uninstall' => array(
 		1	=> 'DROP TABLE IF EXISTS `__usermap_geolocation`',
 	),
