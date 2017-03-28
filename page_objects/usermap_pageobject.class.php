@@ -42,8 +42,8 @@ class usermap_pageobject extends pageobject {
 
 	public function display(){
 		// fill the Cache
-		$this->pdh->put('usermap_geolocation', 'fetchUserLocations');
-		$this->pdh->process_hook_queue();
+		#$this->pdh->put('usermap_geolocation', 'fetchUserLocations');
+		#$this->pdh->process_hook_queue();
 		$saved_locationdata = $this->pdh->get('usermap_geolocation', 'list');
 		$arrMarkers = array();
 		if(is_array($saved_locationdata) && count($saved_locationdata) > 0){

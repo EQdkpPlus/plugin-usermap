@@ -60,7 +60,7 @@ class usermap extends plugin_generic {
 		$this->add_pdh_write_module('usermap_geolocation');
 
 		// -- Hooks -------------------------------------------
-		#$this->add_hook('search',		'usermap_search_hook',	'search');
+		$this->add_hook('usersettings_update',		'usermap_usersettings_update_hook',	'usersettings_update');
 
 		// -- Routing -------------------------------------------
 		$this->routing->addRoute('Usermap', 'usermap', 'plugins/usermap/page_objects');
@@ -86,6 +86,10 @@ class usermap extends plugin_generic {
 		if (is_array($config_vars)){
 			$this->config->set($this->default_config(), '', 'usermap');
 		}
+
+		// load user locations
+		$this->pdh->get('usermap_geolocation', 'fetchUserLocations');
+		$this->pdh->process_hook_queue();
 	}
 
 	/**
