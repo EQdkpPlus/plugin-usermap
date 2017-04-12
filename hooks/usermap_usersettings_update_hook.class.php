@@ -47,6 +47,7 @@ if (!class_exists('usermap_usersettings_update_hook')){
 				$this->pdh->put('usermap_geolocation', 'fetchUserLocation', array($user_id));
 				$this->pdh->process_hook_queue();
 			}
+			return $data;
 		}
 	}
 }
