@@ -56,9 +56,9 @@ if (!class_exists('pdh_r_usermap_geolocation')){
 				// add row by row to local copy
 				while (($row = $result->fetchAssoc())){
 					$this->data[(int)$row['user_id']] = array(
-						'id'			=> (int)$row['user_id'],
-						'lat'			=> (float)$row['latitude'],
-						'long'			=> (float)$row['longitude'],
+						'id'				=> (int)$row['user_id'],
+						'lat'				=> str_replace(',', '.', (float)$row['latitude']),
+						'long'			=> str_replace(',', '.', (float)$row['longitude']),
 						'lastupdate'	=> (int)$row['last_update'],
 					);
 				}

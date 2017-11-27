@@ -42,8 +42,8 @@ class usermap_pageobject extends pageobject {
 
 	public function display(){
 		// fill the Cache
-		#$this->pdh->put('usermap_geolocation', 'fetchUserLocations');
-		#$this->pdh->process_hook_queue();
+		$this->pdh->put('usermap_geolocation', 'fetchUserLocations');
+		$this->pdh->process_hook_queue();
 		$saved_locationdata = $this->pdh->get('usermap_geolocation', 'list');
 
 		$arrMarkers = array();
@@ -51,9 +51,9 @@ class usermap_pageobject extends pageobject {
 			foreach($saved_locationdata as $userid=>$locdata){
 				$arrMarkers[$userid] = array(
 					'title'		=> $this->pdh->get('user', 'name', array($userid)),
-					'tooltip'	=> '<div class="usermap_username">'.$this->pdh->get('user', 'name', array($userid)).'</div>',
-					'lat'		=> $locdata['lat'],
-					'lng'		=> $locdata['long'],
+					'tooltip'	=> "<div class='usermap_username'>".$this->pdh->get('user', 'name', array($userid)).'</div>',
+					'lat'			=> $locdata['lat'],
+					'lng'			=> $locdata['long'],
 				);
 			}
 		}
