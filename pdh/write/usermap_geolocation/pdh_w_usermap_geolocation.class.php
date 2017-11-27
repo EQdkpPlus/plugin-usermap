@@ -73,6 +73,7 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 
 			// fetch latitude & longitude if at least city and country are available
 			if(!empty($country) && !empty($city)){
+				include_once($this->root_path.'plugins/usermap/includes/geolocation.class.php');
 				$result = $this->geolocation->getCoordinates($street, $streetNumber, $city, $zip, $country);
 				if($user_id > 0 && $result['longitude'] > 0 && $result['latitude'] > 0){
 					$this->add($user_id, $result['latitude'], $result['longitude']);

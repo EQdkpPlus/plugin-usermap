@@ -39,7 +39,9 @@ if (!class_exists('usermap_usersettings_update_hook')){
 		* @return array
 		*/
 		public function usersettings_update($data){
-			$user_id	= $this->pdh->get('user', 'userid', array($data['username']));
+			$settingsdata = $data['settingsdata'];
+			
+			$user_id	= $this->pdh->get('user', 'userid', array($settingsdata['username']));
 
 			// check if the user_id > 0
 			if($user_id > 0){
@@ -47,7 +49,7 @@ if (!class_exists('usermap_usersettings_update_hook')){
 				$this->pdh->put('usermap_geolocation', 'fetchUserLocation', array($user_id));
 				$this->pdh->process_hook_queue();
 			}
-			return $data;
+			return $settingsdata;
 		}
 	}
 }

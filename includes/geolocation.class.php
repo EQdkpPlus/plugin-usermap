@@ -25,7 +25,6 @@
 	 	* @param  array  $parameters
 	 	*/
 	 	protected function doCall($parameters = array()){
-
 	 		// define url
 	 		$url = self::gmaps_apiURL . '?';
 	 		foreach ($parameters as $key => $value) $url .= $key . '=' . urlencode($value) . '&';

@@ -127,6 +127,10 @@ class usermapSettings extends page_generic {
 			'page_title'	=> $this->user->lang('usermap').' '.$this->user->lang('settings'),
 			'template_path'	=> $this->pm->get_data('usermap', 'template_path'),
 			'template_file'	=> 'admin/manage_settings.html',
+			'page_path'			=> [
+					['title'=>$this->user->lang('menu_admin_panel'), 'url'=>$this->root_path.'admin/'.$this->SID],
+					['title'=>$this->user->lang('um_breadcrumb_settings'), 'url'=>' '],
+			],
 			'display'		=> true
 	  ));
 	}

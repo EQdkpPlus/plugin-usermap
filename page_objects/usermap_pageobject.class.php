@@ -45,6 +45,7 @@ class usermap_pageobject extends pageobject {
 		#$this->pdh->put('usermap_geolocation', 'fetchUserLocations');
 		#$this->pdh->process_hook_queue();
 		$saved_locationdata = $this->pdh->get('usermap_geolocation', 'list');
+		
 		$arrMarkers = array();
 		if(is_array($saved_locationdata) && count($saved_locationdata) > 0){
 			foreach($saved_locationdata as $userid=>$locdata){
@@ -66,6 +67,7 @@ class usermap_pageobject extends pageobject {
 			'page_title'		=> $this->user->lang('um_title_page'),
 			'template_path'		=> $this->pm->get_data('usermap', 'template_path'),
 			'template_file'		=> 'usermap.html',
+				'page_path'			=> array(array('title' => $this->user->lang('um_title_page'), 'url' => ' ')),
 			'display'			=> true,
 			)
 		);
