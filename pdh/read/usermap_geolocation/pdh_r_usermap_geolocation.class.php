@@ -84,15 +84,15 @@ if (!class_exists('pdh_r_usermap_geolocation')){
 		}
 
 		public function get_latitude($id){
-			return (isset($this->data[$id]) && $this->data[$id]['latitude']) ? $this->data[$id]['latitude'] : 0;
+			return (isset($this->data[$id]) && isset($this->data[$id]['lat']) && $this->data[$id]['lat']) ? $this->data[$id]['latitude'] : 0;
 		}
 
 		public function get_longitude($id){
-			return (isset($this->data[$id]) && $this->data[$id]['longitude']) ? $this->data[$id]['longitude'] : 0;
+			return (isset($this->data[$id]) && isset($this->data[$id]['lng']) && $this->data[$id]['lng']) ? $this->data[$id]['lng'] : 0;
 		}
 
 		public function get_lastupdate($id){
-			return (isset($this->data[$id]) && $this->data[$id]['last_update']) ? $this->data[$id]['last_update'] : 0;
+			return (isset($this->data[$id]) && $this->data[$id]['lastupdate']) ? (int)$this->data[$id]['lastupdate'] : 0;
 		}
 	} //end class
 } //end if class not exists

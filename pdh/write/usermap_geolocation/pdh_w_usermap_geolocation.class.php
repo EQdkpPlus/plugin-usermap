@@ -67,16 +67,24 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 			// load location data
 			$street			= $this->getConfig($user_id, 'street', false);
 			$streetNumber	= $this->getConfig($user_id, 'streetnumber', false);
-			$city			= $this->getConfig($user_id, 'city', 1);
-			$zip			= $this->getConfig($user_id, 'zip', false);
-			$country		= $this->getConfig($user_id, 'country', 17);
+			$city				= $this->getConfig($user_id, 'city', 1);
+			$zip				= $this->getConfig($user_id, 'zip', false);
+			$country			= $this->getConfig($user_id, 'country', 17);
 
 			// fetch latitude & longitude if at least city and country are available
 			if(!empty($country) && !empty($city)){
 				include_once($this->root_path.'plugins/usermap/includes/geolocation.class.php');
 				$result = $this->geolocation->getCoordinates($street, $streetNumber, $city, $zip, $country);
 				if($user_id > 0 && $result['longitude'] > 0 && $result['latitude'] > 0){
-					$this->add($user_id, $result['latitude'], $result['longitude']);
+					$lastupdate = $this->pdh->get('usermap_geolocation', 'lastupdate', array($user_id));
+					if($lastupdate > 0){
+						if(($lastupdate+(86400*7)) < $this->time->time){
+							$this->update($user_id, $result['latitude'], $result['longitude']);
+						}
+					}else{
+						$this->add($user_id, $result['latitude'], $result['longitude']);
+					}
+
 				}
 			}
 			$this->pdh->enqueue_hook('usermap_geolocation_update');
