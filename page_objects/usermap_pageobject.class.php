@@ -51,7 +51,7 @@ class usermap_pageobject extends pageobject {
 			foreach($saved_locationdata as $userid=>$locdata){
 				$arrMarkers[$userid] = array(
 					'title'		=> $this->pdh->get('user', 'name', array($userid)),
-					'tooltip'	=> "<div class='usermap_username'>".$this->pdh->get('user', 'name', array($userid)).'</div>',
+					'tooltip'	=> "<div class='usermap_username'>".$this->pdh->geth('user', 'name', array($userid, '', '', true)).'</div>',
 					'lat'			=> $locdata['lat'],
 					'lng'			=> $locdata['long'],
 				);
