@@ -46,7 +46,8 @@ if (!class_exists('usermap_usersettings_update_hook')){
 			// check if the user_id > 0
 			if($user_id > 0){
 				$this->pdh->put('usermap_geolocation', 'delete', array($user_id));
-				$this->pdh->put('usermap_geolocation', 'fetchUserLocation', array($user_id));
+				$this->pdh->process_hook_queue();
+				$this->pdh->put('usermap_geolocation', 'fetchUserLocation', array($user_id, $settingsdata));
 				$this->pdh->process_hook_queue();
 			}
 			return $settingsdata;
