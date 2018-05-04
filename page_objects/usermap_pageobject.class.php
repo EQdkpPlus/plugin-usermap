@@ -52,8 +52,8 @@ class usermap_pageobject extends pageobject {
 				$arrMarkers[$userid] = array(
 					'title'		=> $this->pdh->get('user', 'name', array($userid)),
 					'tooltip'	=> "<div class='usermap_username'>".$this->pdh->geth('user', 'name', array($userid, '', '', true)).'</div>',
-					'lat'			=> $locdata['lat'],
-					'lng'			=> $locdata['long'],
+					'lat'		=> $locdata['lat'],
+					'lng'		=> $locdata['long'],
 				);
 			}
 		}
@@ -67,7 +67,7 @@ class usermap_pageobject extends pageobject {
 			'page_title'		=> $this->user->lang('um_title_page'),
 			'template_path'		=> $this->pm->get_data('usermap', 'template_path'),
 			'template_file'		=> 'usermap.html',
-				'page_path'			=> array(array('title' => $this->user->lang('um_title_page'), 'url' => ' ')),
+			'page_path'			=> array(array('title' => $this->user->lang('um_title_page'), 'url' => ' ')),
 			'display'			=> true,
 			)
 		);
