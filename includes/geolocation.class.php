@@ -58,8 +58,6 @@ if(!class_exists('geolocation')) {
 		* @param  float			$longitude
 		*/
 		public function getAddresse_helper($latitude, $longitude){
-			// init results
-			$addresses = array();
 
 			// define result
 			$addressSuggestions = $this->doCall(array(
@@ -68,17 +66,7 @@ if(!class_exists('geolocation')) {
 				'addressdetails'	=> 1
 			), 'reverse');
 
-			// init address
-			$address = array();
-
-			// define address components by looping all address components
-			foreach ($addressSuggestion->address_components as $component) {
-				$address['components'][] = array(
-					'long_name'		=> $component->long_name,
-					'short_name'	=> $component->short_name,
-					'types'			=> $component->types
-				);
-			}
+			return $addressSuggestions->address;
 		}
 
 		/**
@@ -108,8 +96,8 @@ if(!class_exists('geolocation')) {
 
 			// return coordinates latitude/longitude
 			return array(
-				'latitude'	=> array_key_exists(0, $results) ? (float) $results[0]->->lat : null,
-				'longitude'	=> array_key_exists(0, $results) ? (float) $results[0]->->lon : null
+				'latitude'	=> array_key_exists(0, $results) ? (float) $results[0]->lat : null,
+				'longitude'	=> array_key_exists(0, $results) ? (float) $results[0]->lon : null
 			);
 		}
 	}
