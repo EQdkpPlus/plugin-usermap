@@ -25,7 +25,7 @@ if (!defined('EQDKP_INC')){
 
 class usermap extends plugin_generic {
 	public $vstatus		= 'Stable';
-	public $version		= '0.1';
+	public $version		= '0.2';
 	public $copyright 	= 'Eqdkpplus Dev Team';
 
 	protected static $apiLevel = 23;
@@ -61,6 +61,7 @@ class usermap extends plugin_generic {
 
 		// -- Hooks -------------------------------------------
 		$this->add_hook('usersettings_update',	'usermap_usersettings_update_hook',	'usersettings_update');
+		$this->add_hook('user_delete',	'usermap_user_delete_hook',	'user_delete');
 
 		// -- Routing -------------------------------------------
 		$this->routing->addRoute('Usermap', 'usermap', 'plugins/usermap/page_objects');
