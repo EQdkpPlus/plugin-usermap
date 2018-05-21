@@ -52,14 +52,14 @@ class usermap_pageobject extends pageobject {
 				$arrMarkers[$userid] = array(
 					'title'		=> $this->pdh->get('user', 'name', array($userid)),
 					'tooltip'	=> "<div class='usermap_username'>".$this->pdh->geth('user', 'name', array($userid, '', '', true)).'</div>',
-					'lat'			=> $locdata['lat'],
-					'lng'			=> $locdata['long'],
+					'lat'		=> $locdata['lat'],
+					'lng'		=> $locdata['long'],
 				);
 			}
 		}
 
 		$this->tpl->assign_vars(array(
-			'MAP'			=> $this->jquery->googlemaps('usermap', $arrMarkers),
+			'MAP'			=> (method_exists($this->jquery, 'geomap')) ? $this->jquery->geomap('usermap', $arrMarkers) : $this->jquery->googlemaps('usermap', $arrMarkers),
 			'CREDITS'		=> sprintf($this->user->lang('um_credits'), $this->pm->get_data('usermap', 'version')),
 		));
 
@@ -67,7 +67,7 @@ class usermap_pageobject extends pageobject {
 			'page_title'		=> $this->user->lang('um_title_page'),
 			'template_path'		=> $this->pm->get_data('usermap', 'template_path'),
 			'template_file'		=> 'usermap.html',
-				'page_path'			=> array(array('title' => $this->user->lang('um_title_page'), 'url' => ' ')),
+			'page_path'			=> array(array('title' => $this->user->lang('um_title_page'), 'url' => ' ')),
 			'display'			=> true,
 			)
 		);

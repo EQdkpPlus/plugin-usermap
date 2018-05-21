@@ -3,7 +3,8 @@
 /**
  * Geolocation
  *
- * Get latitude/longitude or address using Google Maps API
+ * Get latitude/longitude or address using OSM Nominatim API
+ * https://wiki.openstreetmap.org/wiki/Nominatim
  *
  */
  if(!defined('EQDKP_INC'))
@@ -12,114 +13,92 @@
  	exit;
  }
 
- if(!class_exists('geolocation')) {
-	 class geolocation extends gen_class {
-	 	// API URL
-	 	const gmaps_apiURL = 'https://maps.googleapis.com/maps/api/geocode/json';
-		const default_apikey = 'AIzaSyAogA0D9EuHGziYSXc9XUktG_FJrV6rIKA';
+if(!class_exists('geolocation')) {
+	class geolocation extends gen_class {
+		// API URL
+		const nominatim_apiURL = 'https://nominatim.openstreetmap.org/';
 
-	 	/**
-	 	* Do call
-	 	*
-	 	* @return object
-	 	* @param  array  $parameters
-	 	*/
-	 	protected function doCall($parameters = array()){
-	 		// define url
-	 		$url = self::gmaps_apiURL . '?';
-	 		foreach ($parameters as $key => $value) $url .= $key . '=' . urlencode($value) . '&';
-	 		$url .= 'key=' . ((defined('GOOGLE_MAP_API_KEY')) ? GOOGLE_MAP_API_KEY : self::default_apikey);
+		/**
+		* Do call
+		*
+		* @return object
+		* @param  array  $parameters
+		*/
+		protected function doCall($parameters = array(), $type="normal"){
+			// define url
+			$url = self::nominatim_apiURL.(($type == "reverse") ? 'reverse?format=json&' : 'search?format=json&');
+			foreach ($parameters as $key => $value) $url .= $key . '=' . urlencode($value) . '&';
 
-	 		// fetch the data
-	 		$response = register('urlfetcher')->fetch($url);
-	 		if($response){
-	 			$response = json_decode($response);
-	 			return $response->results;
-	 		}
-	 		return false;
-	 	}
+			// fetch the data
+			$response = register('urlfetcher')->fetch($url);
+			if($response){
+				$response = json_decode($response);
+				return $response->results;
+			}
+			return false;
+		}
 
-	 	/**
-	 	* Get address using latitude/longitude
-	 	*
-	 	* @return array(label, components)
-	 	* @param  float        $latitude
-	 	* @param  float        $longitude
-	 	*/
-	 	public function getAddress($latitude, $longitude){
-	 		$addressSuggestions = $this->getAddresses($latitude, $longitude);
-	 		return $addressSuggestions[0];
-	 	}
+		/**
+		* Get address using latitude/longitude
+		*
+		* @return array(label, components)
+		* @param  float			$latitude
+		* @param  float			$longitude
+		*/
+		public function getAddress($latitude, $longitude){
+			$addressSuggestions = $this->getAddresse_helper($latitude, $longitude);
+			return $addressSuggestions[0];
+		}
 
-	 	/**
-	 	* Get possible addresses using latitude/longitude
-	 	*
-	 	* @return array(label, street, streetNumber, city, cityLocal, zip, country, countryLabel)
-	 	* @param  float        $latitude
-	 	* @param  float        $longitude
-	 	*/
-	 	public function getAddresses($latitude, $longitude){
-	 		// init results
-	 		$addresses = array();
+		/**
+		* Get possible addresses using latitude/longitude
+		*
+		* @return array(label, street, streetNumber, city, cityLocal, zip, country, countryLabel)
+		* @param  float			$latitude
+		* @param  float			$longitude
+		*/
+		public function getAddresse_helper($latitude, $longitude){
 
-	 		// define result
-	 		$addressSuggestions = $this->doCall(array(
-	 			'latlng'	=> $latitude . ',' . $longitude,
-	 			'sensor'	=> 'false'
-	 		));
+			// define result
+			$addressSuggestions = $this->doCall(array(
+				'lat'				=> $latitude,
+				'lon'				=> $longitude,
+				'addressdetails'	=> 1
+			), 'reverse');
 
-	 		// loop addresses
-	 		foreach ($addressSuggestions as $key => $addressSuggestion) {
-	 			// init address
-	 			$address = array();
+			return $addressSuggestions->address;
+		}
 
-	 			// define label
-	 			$address['label'] = isset($addressSuggestion->formatted_address) ? $addressSuggestion->formatted_address : null;
+		/**
+		* Get coordinates latitude/longitude
+		*
+		* @return array  The latitude/longitude coordinates
+		* @param  string $street[optional]
+		* @param  string $streetNumber[optional]
+		* @param  string $city[optional]
+		* @param  string $zip[optional]
+		* @param  string $country[optional]
+		*/
+		public function getCoordinates($street = null, $streetNumber = null, $city = null, $zip = null, $country = null) {
+			$item = array();
 
-	 			// define address components by looping all address components
-	 			foreach ($addressSuggestion->address_components as $component) {
-	 				$address['components'][] = array(
-	 					'long_name'		=> $component->long_name,
-	 					'short_name'	=> $component->short_name,
-	 					'types'			=> $component->types
-	 				);
-	 			}
-	 			$addresses[$key] = $address;
-	 		}
-	 		return $addresses;
-	 	}
+			if (!empty($street))		$item[] = $street;
+			if (!empty($streetNumber))	$item[] = $streetNumber;
+			if (!empty($city))			$item[] = $city;
+			if (!empty($zip))			$item[] = $zip;
+			if (!empty($country))		$item[] = $country;
 
-	 	/**
-	 	* Get coordinates latitude/longitude
-	 	*
-	 	* @return array  The latitude/longitude coordinates
-	 	* @param  string $street[optional]
-	 	* @param  string $streetNumber[optional]
-	 	* @param  string $city[optional]
-	 	* @param  string $zip[optional]
-	 	* @param  string $country[optional]
-	 	*/
-	 	public function getCoordinates($street = null, $streetNumber = null, $city = null, $zip = null, $country = null) {
-	 		$item = array();
+			$address = implode(' ', $item);
 
-	 		if (!empty($street))		$item[] = $street;
-	 		if (!empty($streetNumber))	$item[] = $streetNumber;
-	 		if (!empty($city))			$item[] = $city;
-	 		if (!empty($zip))			$item[] = $zip;
-	 		if (!empty($country))		$item[] = $country;
+			$results = $this->doCall(array(
+				'q'	=> $address,
+			));
 
-	 		$address = implode(' ', $item);
-
-	 		$results = $this->doCall(array(
-	 			'address'	=> $address,
-	 			'sensor'	=> 'false'
-	 		));
-
-	 		// return coordinates latitude/longitude
-	 		return array(
-	 			'latitude'	=> array_key_exists(0, $results) ? (float) $results[0]->geometry->location->lat : null,
-	 			'longitude'	=> array_key_exists(0, $results) ? (float) $results[0]->geometry->location->lng : null
-	 		);
-	 	}
-	 }
- }
+			// return coordinates latitude/longitude
+			return array(
+				'latitude'	=> array_key_exists(0, $results) ? (float) $results[0]->lat : null,
+				'longitude'	=> array_key_exists(0, $results) ? (float) $results[0]->lon : null
+			);
+		}
+	}
+}
