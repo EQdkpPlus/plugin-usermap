@@ -62,6 +62,7 @@ class usermap extends plugin_generic {
 		// -- Hooks -------------------------------------------
 		$this->add_hook('usersettings_update',	'usermap_usersettings_update_hook',	'usersettings_update');
 		$this->add_hook('user_delete',	'usermap_user_delete_hook',	'user_delete');
+		$this->add_hook('user_export_gdpr',	'usermap_user_export_gdpr_hook',	'user_export_gdpr');
 
 		// -- Routing -------------------------------------------
 		$this->routing->addRoute('Usermap', 'usermap', 'plugins/usermap/page_objects');
