@@ -22,7 +22,7 @@
 class usermap_pageobject extends pageobject {
 
 	public static function __shortcuts(){
-		$shortcuts = array('geolocation' => 'geolocation');
+		$shortcuts = array('geoloc' => 'geolocation');
 		return array_merge(parent::$shortcuts, $shortcuts);
 	}
 
@@ -32,7 +32,6 @@ class usermap_pageobject extends pageobject {
 		if (!$this->pm->check('usermap', PLUGIN_INSTALLED))
 			message_die($this->user->lang('usermap_not_installed'));
 
-		require_once($this->root_path.'plugins/usermap/includes/geolocation.class.php');
 		$handler = array(
 			#'save' => array('process' => 'save', 'csrf' => true, 'check' => 'u_guildbank_view'),
 		);

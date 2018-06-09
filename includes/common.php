@@ -28,6 +28,5 @@ include_once($eqdkp_root_path.'common.php');
 if (!registry::register('plugin_manager')->check('usermap', PLUGIN_INSTALLED) ) {
 	message_die(registry::register('user')->lang('usermap_not_installed'));
 }
-require_once($eqdkp_root_path.'plugins/usermap/includes/geolocation.class.php');
 
 ?>

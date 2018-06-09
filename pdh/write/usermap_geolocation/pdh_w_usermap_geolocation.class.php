@@ -73,7 +73,6 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 
 			// fetch latitude & longitude if at least city and country are available
 			if(!empty($country) && !empty($city)){
-				include_once($this->root_path.'plugins/usermap/includes/geolocation.class.php');
 				$result = $this->geolocation->getCoordinates($street, $streetNumber, $city, $zip, $country);
 				if($user_id > 0 && $result['longitude'] > 0 && $result['latitude'] > 0){
 					$lastupdate = $this->pdh->get('usermap_geolocation', 'lastupdate', array($user_id));
@@ -93,15 +92,15 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 		// custom function to load either the saved data used in config or a defined fallback value
 		private function getConfig($userid, $settingsdata, $fieldname, $defaultfield){
 		    $strFieldname = ($this->config->get($fieldname,	'usermap')) ? 'userprofile_'.$this->config->get($fieldname,	'usermap') : 'userprofile_'.$defaultfield;
-		    
+
 		    if(count($settingsdata)){
 		        $strValue = (isset($settingsdata[$strFieldname])) ? $settingsdata[$strFieldname] : '';
 		    } else {
 		        $strValue = $this->pdh->get('user', 'custom_fields', array($userid, $strFieldname));
 		    }
-		    
+
 			if(!is_string($strValue)) return '';
-			
+
 			return $strValue;
 		}
 
