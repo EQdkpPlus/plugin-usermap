@@ -40,6 +40,9 @@ if (!class_exists('usermap_usersettings_update_hook')){
 			$settingsdata	= $data['settingsdata'];
 			$user_id		= $this->pdh->get('user', 'userid', array($settingsdata['username']));
 
+			// Add debug call
+			$this->pdl->log('usermaps', 'Usersettings Update Hook called');
+
 			// check if the user_id > 0
 			if($user_id > 0){
 				$this->pdh->put('usermap_geolocation', 'delete', array($user_id));

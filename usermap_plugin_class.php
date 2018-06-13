@@ -70,6 +70,9 @@ class usermap extends plugin_generic {
 		// -- Menu --------------------------------------------
 		$this->add_menu('admin', $this->gen_admin_menu());
 		$this->add_menu('main', $this->gen_main_menu());
+
+		// -- Log Type ----------------------------------------
+		$this->pdl->register_type('usermaps');
 	}
 
 	/**
