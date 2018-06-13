@@ -58,7 +58,7 @@ class usermap_pageobject extends pageobject {
 		}
 
 		$this->tpl->assign_vars(array(
-			'MAP'			=> (method_exists($this->jquery, 'geomap')) ? $this->jquery->geomap('usermap', $arrMarkers) : $this->jquery->googlemaps('usermap', $arrMarkers),
+			'MAP'			=> $this->jquery->geomaps('usermap', $arrMarkers),
 			'CREDITS'		=> sprintf($this->user->lang('um_credits'), $this->pm->get_data('usermap', 'version')),
 		));
 
