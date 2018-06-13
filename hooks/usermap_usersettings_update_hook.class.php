@@ -30,8 +30,6 @@ if (!defined('EQDKP_INC'))
   +--------------------------------------------------------------------------*/
 if (!class_exists('usermap_usersettings_update_hook')){
 	class usermap_usersettings_update_hook extends gen_class{
-		/* List of dependencies */
-
 		/**
 		* usersettings_update
 		* Do the hook 'usersettings_update'
@@ -39,9 +37,8 @@ if (!class_exists('usermap_usersettings_update_hook')){
 		* @return array
 		*/
 		public function usersettings_update($data){
-			$settingsdata = $data['settingsdata'];
-			
-			$user_id	= $this->pdh->get('user', 'userid', array($settingsdata['username']));
+			$settingsdata	= $data['settingsdata'];
+			$user_id		= $this->pdh->get('user', 'userid', array($settingsdata['username']));
 
 			// check if the user_id > 0
 			if($user_id > 0){
