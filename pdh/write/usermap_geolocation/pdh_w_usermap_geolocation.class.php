@@ -76,7 +76,7 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 			if(!empty($country) && !empty($city)){
 				$this->pdl->log('usermaps', 'City and country available, start fetching the lat/lon coordinates');
 				$result = $this->geoloc->getCoordinates($street, $streetNumber, $city, $zip, $country);
-				$this->pdl->log('usermaps', 'Fetched Lat/Lon coordinates '.$result);
+				$this->pdl->log('usermaps', 'Fetched Lat/Lon coordinates');
 				if($user_id > 0 && $result['longitude'] > 0 && $result['latitude'] > 0){
 					$lastupdate = $this->pdh->get('usermap_geolocation', 'lastupdate', array($user_id));
 					if($lastupdate > 0){
