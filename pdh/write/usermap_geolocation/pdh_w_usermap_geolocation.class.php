@@ -100,7 +100,7 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 			} else {
 				$strValue = $this->pdh->get('user', 'custom_fields', array($userid, $strFieldname));
 			}
-			return (is_string($strValue))) ? $strValue : '';
+			return (is_string($strValue)) ? $strValue : '';
 		}
 
 		public function delete($intID){
