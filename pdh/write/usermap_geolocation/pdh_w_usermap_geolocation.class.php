@@ -65,11 +65,11 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 
 		public function fetchUserLocation($user_id, $settingsdata = array()){
 			// load location data
-		    $street			    = $this->getConfig($user_id, $settingsdata, 'street', false);
-		    $streetNumber	    = $this->getConfig($user_id, $settingsdata, 'streetnumber', false);
-		    $city				= $this->getConfig($user_id, $settingsdata, 'city', 1);
-		    $zip				= $this->getConfig($user_id, $settingsdata, 'zip', false);
-		    $country			= $this->getConfig($user_id, $settingsdata, 'country', 17);
+			$street				= $this->getConfig($user_id, $settingsdata, 'street', false);
+			$streetNumber		= $this->getConfig($user_id, $settingsdata, 'streetnumber', false);
+			$city				= $this->getConfig($user_id, $settingsdata, 'city', 1);
+			$zip				= $this->getConfig($user_id, $settingsdata, 'zip', false);
+			$country			= $this->getConfig($user_id, $settingsdata, 'country', 17);
 
 			// fetch latitude & longitude if at least city and country are available
 				$this->pdl->log('usermaps', 'Street: '.$street.' '.$streetNumber.', City: '.$city.', ZIP: '.$zip.', country: '.$country);
@@ -94,17 +94,13 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 
 		// custom function to load either the saved data used in config or a defined fallback value
 		private function getConfig($userid, $settingsdata, $fieldname, $defaultfield){
-		    $strFieldname = ($this->config->get($fieldname,	'usermap')) ? 'userprofile_'.$this->config->get($fieldname,	'usermap') : 'userprofile_'.$defaultfield;
-
-		    if(count($settingsdata)){
-		        $strValue = (isset($settingsdata[$strFieldname])) ? $settingsdata[$strFieldname] : '';
-		    } else {
-		        $strValue = $this->pdh->get('user', 'custom_fields', array($userid, $strFieldname));
-		    }
-
-			if(!is_string($strValue)) return '';
-
-			return $strValue;
+			$strFieldname = ($this->config->get($fieldname, 'usermap')) ? 'userprofile_'.$this->config->get($fieldname, 'usermap') : 'userprofile_'.$defaultfield;
+			if(count($settingsdata)){
+				$strValue = (isset($settingsdata[$strFieldname])) ? $settingsdata[$strFieldname] : '';
+			} else {
+				$strValue = $this->pdh->get('user', 'custom_fields', array($userid, $strFieldname));
+			}
+			return (is_string($strValue))) ? $strValue : '';
 		}
 
 		public function delete($intID){
