@@ -64,20 +64,24 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 		}
 
 		public function fetchUserLocation($user_id, $settingsdata = array()){
+			
 			// load location data
-			$street				= $this->getConfig($user_id, $settingsdata, 'street', false);
-			$streetNumber		= $this->getConfig($user_id, $settingsdata, 'streetnumber', false);
-			$city				= $this->getConfig($user_id, $settingsdata, 'city', 1);
-			$zip				= $this->getConfig($user_id, $settingsdata, 'zip', false);
-			$country			= $this->getConfig($user_id, $settingsdata, 'country', 17);
+		    $street			    = $this->getConfig($user_id, $settingsdata, 'street', false);
+		    $streetNumber	    = $this->getConfig($user_id, $settingsdata, 'streetnumber', false);
+		    $city				= $this->getConfig($user_id, $settingsdata, 'city', 1);
+		    $zip				= $this->getConfig($user_id, $settingsdata, 'zip', false);
+		    $country			= $this->getConfig($user_id, $settingsdata, 'country', 17);
+		    
+		    
 
 			// fetch latitude & longitude if at least city and country are available
-				$this->pdl->log('usermaps', 'Street: '.$street.' '.$streetNumber.', City: '.$city.', ZIP: '.$zip.', country: '.$country);
+			$this->pdl->log('usermaps', 'Street: '.$street.' '.$streetNumber.', City: '.$city.', ZIP: '.$zip.', country: '.$country);
+			
 			if(!empty($country) && !empty($city)){
 				$this->pdl->log('usermaps', 'City and country available, start fetching the lat/lon coordinates');
 				$result = $this->geoloc->getCoordinates($street, $streetNumber, $city, $zip, $country);
 				$this->pdl->log('usermaps', 'Fetched Lat/Lon coordinates');
-				if($user_id > 0 && $result['longitude'] > 0 && $result['latitude'] > 0){
+				if($user_id > 0 && strlen($result['longitude']) && strlen($result['latitude'])){
 					$lastupdate = $this->pdh->get('usermap_geolocation', 'lastupdate', array($user_id));
 					if($lastupdate > 0){
 						if((($lastupdate+(86400*7)) < $this->time->time) || count($settingsdata)){
@@ -94,13 +98,17 @@ if (!class_exists('pdh_w_usermap_geolocation')){
 
 		// custom function to load either the saved data used in config or a defined fallback value
 		private function getConfig($userid, $settingsdata, $fieldname, $defaultfield){
-			$strFieldname = ($this->config->get($fieldname, 'usermap')) ? 'userprofile_'.$this->config->get($fieldname, 'usermap') : 'userprofile_'.$defaultfield;
-			if(count($settingsdata)){
-				$strValue = (isset($settingsdata[$strFieldname])) ? $settingsdata[$strFieldname] : '';
-			} else {
-				$strValue = $this->pdh->get('user', 'custom_fields', array($userid, $strFieldname));
-			}
-			return (is_string($strValue)) ? $strValue : '';
+		    $strFieldname = ($this->config->get($fieldname,	'usermap')) ? 'userprofile_'.$this->config->get($fieldname,	'usermap') : 'userprofile_'.$defaultfield;
+
+		    if(count($settingsdata)){
+		        $strValue = (isset($settingsdata[$strFieldname])) ? $settingsdata[$strFieldname] : '';
+		    } else {
+		        $strValue = $this->pdh->get('user', 'custom_fields', array($userid, $strFieldname));
+		    }
+
+			if(!is_string($strValue)) return '';
+
+			return $strValue;
 		}
 
 		public function delete($intID){

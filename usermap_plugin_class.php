@@ -25,8 +25,8 @@ if (!defined('EQDKP_INC')){
 
 class usermap extends plugin_generic {
 	public $vstatus		= 'Stable';
-	public $version		= '1.0';
-	public $copyright 	= 'Eqdkpplus Dev Team';
+	public $version		= '1.0.1';
+	public $copyright 	= 'EQdkpPlus Dev Team';
 
 	protected static $apiLevel = 23;
 
